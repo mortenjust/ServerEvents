@@ -6,7 +6,7 @@
 //  Copyright © 2019 inaka. All rights reserved.
 //
 
-import Foundation
+import Foundation 
 
 enum Event {
     case event(id: String?, event: String?, data: String?, time: String?)
