@@ -30,7 +30,7 @@ public class ServerEvents : Publisher {
     var method : EventSource.Method = .get
     var contentType = "application/json"
     
-    var subject = PassthroughSubject<Output, Failure>()
+    public var subject = PassthroughSubject<Output, Failure>()
     
     public init(url: URL, headers: [String:String]? = nil,
          payload: Data?,
