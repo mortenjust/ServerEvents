@@ -46,6 +46,8 @@ open class EventSource: NSObject, EventSourceProtocol, URLSessionDataDelegate {
         method: Method = .get,
         payloadData : Data? = nil
     ) {
+        
+        
         self.url = url
         self.headers = headers
         self.method = method

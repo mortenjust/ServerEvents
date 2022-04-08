@@ -22,6 +22,10 @@ public class ServerEvents : Publisher {
         static var end = "[END]"
     }
     
+    deinit {
+        
+        Swift.print("SE deinit")}
+    
     var eventSource : EventSource?
     
     var url : URL
@@ -36,6 +40,8 @@ public class ServerEvents : Publisher {
          payload: Data?,
          method: EventSource.Method,
          authKey: String? = nil) {
+
+        Swift.print("SSE Init")
         
         self.url = url
         self.headers = headers ?? [String:String]()
@@ -46,6 +52,7 @@ public class ServerEvents : Publisher {
             self.headers["Authorization"] = "Bearer \(authKey)"
         }
         self.headers["Content-Type"] = self.contentType
+        
     }
     
     public func receive<S>(subscriber: S) where S : Subscriber, Failure == S.Failure, String == S.Input {
@@ -54,12 +61,15 @@ public class ServerEvents : Publisher {
     }
     
     func connectToServer(withSubject subject : PassthroughSubject<Output, Failure>) {
+        Swift.print("SSE: connect to server")
+        
         eventSource = EventSource(
             url: self.url,
             headers: self.headers,
             method: self.method,
             payloadData: payload)
         
+        Swift.print("SSE: event source connecting")
         eventSource?.connect()
         eventSource?.onOpen {
         }
@@ -68,6 +78,7 @@ public class ServerEvents : Publisher {
         })
         
         eventSource?.onMessage({ id, event, data in
+            Swift.print("SSE: event source onMessage")
             if let message = data, message != Constants.end {
                 subject.send(message)
             }
