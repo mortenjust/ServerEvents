@@ -23,8 +23,8 @@ public class ServerEvents : Publisher {
     }
     
     deinit {
-        
-        Swift.print("SE deinit")}
+        Swift.print("SE deinit")
+    }
     
     var eventSource : EventSource?
     
